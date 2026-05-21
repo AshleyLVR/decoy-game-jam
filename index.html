@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DECOY — Vegas Infinite Originals</title>
+  <meta name="description" content="Trust your eyes. A Vegas Infinite Original where perception is the bet." />
+
+  <!-- OG meta -->
+  <meta property="og:title" content="DECOY — A Vegas Infinite Original" />
+  <meta property="og:description" content="Three ducks. One tell. One pick. Trust your eyes." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts: Sora (heading stand-in for Capitana Extra Bold) + Inter (body stand-in for Capitana Light) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Decorative neon background layers (matches VI "Expressive GFX" + "Decorative GFX") -->
+  <div class="bg-streaks" aria-hidden="true"></div>
+  <div class="bg-halftone" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <!-- Vegas Infinite inline mark -->
+      <svg class="vi-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fde054" />
+            <stop offset="50%" stop-color="#fc6b23" />
+            <stop offset="100%" stop-color="#9500c6" />
+          </linearGradient>
+        </defs>
+        <!-- Stylized spade-with-infinity mark -->
+        <g fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 6 L40 18 L32 26 L24 18 Z" />
+          <path d="M22 36 q-6 -6 0 -12 q6 -6 10 0 q4 6 10 0 q6 -6 0 12 q-6 6 -10 0 q-4 -6 -10 0 Z" />
+          <path d="M22 42 L42 42" />
+        </g>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-line-1">VEGAS</span>
+        <span class="brand-line-2">INFINITE</span>
+      </div>
+      <span class="originals-tag">ORIGINALS</span>
+    </div>
+
+    <div class="balance-pill" id="balanceDisplay">
+      <span class="balance-label">BALANCE</span>
+      <span class="balance-amount" id="balanceAmount">1,000</span>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- Game phases swap into this container -->
+    <section class="phase phase-bet" id="phaseBet">
+      <h1 class="game-title">DECOY</h1>
+      <p class="game-tagline">Three ducks. One tell. Trust your eyes.</p>
+
+      <div class="bet-panel">
+        <div class="bet-section">
+          <label class="bet-label">YOUR BET</label>
+          <div class="chip-row" role="radiogroup" aria-label="Bet amount">
+            <button class="chip chip--1" data-bet="1" role="radio" aria-checked="false">1</button>
+            <button class="chip chip--5" data-bet="5" role="radio" aria-checked="false">5</button>
+            <button class="chip chip--25" data-bet="25" role="radio" aria-checked="true">25</button>
+            <button class="chip chip--100" data-bet="100" role="radio" aria-checked="false">100</button>
+            <button class="chip chip--500" data-bet="500" role="radio" aria-checked="false">500</button>
+          </div>
+        </div>
+
+        <div class="bet-section">
+          <label class="bet-label">CONFIDENCE</label>
+          <p class="bet-help">Higher payout, but you must be right.</p>
+          <div class="confidence-row" role="radiogroup" aria-label="Confidence multiplier">
+            <button class="conf conf--low" data-conf="2" role="radio" aria-checked="true">
+              <span class="conf-mult">2&times;</span>
+              <span class="conf-label">SAFE</span>
+            </button>
+            <button class="conf conf--mid" data-conf="5" role="radio" aria-checked="false">
+              <span class="conf-mult">5&times;</span>
+              <span class="conf-label">BOLD</span>
+            </button>
+            <button class="conf conf--high" data-conf="15" role="radio" aria-checked="false">
+              <span class="conf-mult">15&times;</span>
+              <span class="conf-label">SHARP</span>
+            </button>
+            <button class="conf conf--xtreme" data-conf="40" role="radio" aria-checked="false">
+              <span class="conf-mult">40&times;</span>
+              <span class="conf-label">EAGLE-EYE</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bet-summary">
+          <div>
+            <span class="summary-label">POTENTIAL WIN</span>
+            <span class="summary-value" id="potentialWin">50</span>
+          </div>
+          <button class="primary-btn" id="startBtn">START ROUND</button>
+        </div>
+      </div>
+
+      <div class="history-strip" id="historyStrip" aria-label="Recent results">
+        <span class="history-label">RECENT</span>
+        <span class="history-empty">No rounds yet</span>
+      </div>
+    </section>
+
+    <section class="phase phase-play hidden" id="phasePlay">
+      <div class="phase-banner" id="phaseBanner">
+        <span class="phase-banner-text" id="phaseBannerText">WATCH CLOSELY</span>
+        <span class="phase-banner-countdown" id="phaseBannerCountdown">5</span>
+      </div>
+
+      <div class="pond" id="pond">
+        <!-- Ducks injected here by JS -->
+      </div>
+
+      <div class="phase-hint" id="phaseHint">One of them is the Lucky Duck. Find the tell.</div>
+    </section>
+
+    <section class="phase phase-result hidden" id="phaseResult">
+      <div class="result-card" id="resultCard">
+        <div class="result-headline" id="resultHeadline">WIN</div>
+        <div class="result-amount" id="resultAmount">+250</div>
+        <div class="result-detail" id="resultDetail">25 &times; 10 confidence</div>
+        <div class="result-actions">
+          <button class="primary-btn" id="playAgainBtn">PLAY AGAIN</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footnote">
+    <span>A VEGAS INFINITE ORIGINAL &mdash; web-native, never been done.</span>
+    <button class="mute-btn" id="muteBtn" aria-label="Toggle sound" aria-pressed="false">
+      <span class="mute-icon" id="muteIcon">&#9836;</span>
+    </button>
+  </footer>
+
+  <script src="ducky.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
