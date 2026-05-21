@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DECOY — Vegas Infinite Originals</title>
+  <meta name="description" content="Trust your eyes. A Vegas Infinite Original where perception is the bet." />
+
+  <!-- OG meta -->
+  <meta property="og:title" content="DECOY — A Vegas Infinite Original" />
+  <meta property="og:description" content="Three ducks. One tell. One pick. Trust your eyes." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts: Sora (heading stand-in for Capitana Extra Bold) + Inter (body stand-in for Capitana Light) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+/* =========================================================
+   DECOY — Vegas Infinite Original
+   Brand tokens drawn from the VI Brand Bible.
+   ========================================================= */
+
+:root {
+  /* Brand palette (exact hex from Brand Bible page 52) */
+  --vi-pink: #fb009f;
+  --vi-red: #f8050e;
+  --vi-orange: #fc6b23;
+  --vi-cream: #fbf4db;
+  --vi-yellow: #fde054;
+  --vi-peach: #f59f41;
+  --vi-purple: #9500c6;
+  --vi-blue: #173dff;
+  --vi-cyan: #2afeff;
+  --vi-black: #000000;
+  --vi-deep: #0a0211; /* near-black with a hint of purple */
+  --vi-deep-2: #110318;
+
+  /* Semantic */
+  --bg-base: var(--vi-black);
+  --text-body: var(--vi-cream);
+  --text-muted: rgba(251, 244, 219, 0.55);
+  /* Warm gold gradient — matches the actual VI wordmark (no purple bleed) */
+  --gold-grad: linear-gradient(135deg, #fde054 0%, #f59f41 40%, #fc6b23 75%, #c54e0c 100%);
+
+  /* Layout */
+  --maxw: 1200px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* Type */
+  --font-display: 'Sora', 'Capitana', system-ui, sans-serif;
+  --font-body: 'Inter', 'Capitana', system-ui, sans-serif;
+  --tracking-display: 0.05em; /* tracking 50 in Brand Bible */
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* =========================================================
+   Decorative background layers (Expressive GFX + Decorative GFX vibe)
+   ========================================================= */
+.bg-streaks {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 20% -10%, rgba(251, 0, 159, 0.35), transparent 60%),
+    radial-gradient(ellipse 90% 50% at 110% 10%, rgba(252, 107, 35, 0.28), transparent 60%),
+    radial-gradient(ellipse 90% 70% at -10% 110%, rgba(149, 0, 198, 0.30), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 110% 110%, rgba(42, 254, 255, 0.18), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(6px);
+}
+.bg-halftone {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(251, 244, 219, 0.06) 1px, transparent 1.5px);
+  background-size: 26px 26px;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 60%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 60%, black 30%, transparent 80%);
+}
+
+/* =========================================================
+   Topbar
+   ========================================================= */
+.topbar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 36px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.vi-mark { width: 38px; height: 38px; filter: drop-shadow(0 0 6px rgba(252, 107, 35, 0.45)); }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.92;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+}
+.brand-line-1, .brand-line-2 {
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-line-1 { font-size: 18px; }
+.brand-line-2 { font-size: 14px; letter-spacing: 0.18em; }
+.originals-tag {
+  margin-left: 14px;
+  padding: 5px 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--vi-cream);
+  border: 1px solid rgba(251, 244, 219, 0.25);
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+}
+
+.balance-pill {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 18px;
+  background: rgba(251, 244, 219, 0.04);
+  border: 1px solid rgba(251, 244, 219, 0.10);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(8px);
+}
+.balance-label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+.balance-amount {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================================================
+   Stage / phases
+   ========================================================= */
+.stage {
+  position: relative;
+  z-index: 5;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 36px 80px;
+  min-height: calc(100vh - 200px);
+}
+.phase { display: block; }
+.hidden { display: none !important; }
+
+/* ----- Bet phase ----- */
+.game-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(48px, 9vw, 100px);
+  letter-spacing: 0.04em;
+  margin: 8px 0 6px;
+  background: linear-gradient(135deg, #fb009f 0%, #fc6b23 35%, #2afeff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(251, 0, 159, 0.25);
+  line-height: 0.95;
+}
+.game-tagline {
+  margin: 0 0 36px;
+  font-size: 17px;
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.bet-panel {
+  display: grid;
+  gap: 26px;
+  padding: 28px;
+  background: linear-gradient(180deg, rgba(251, 244, 219, 0.03), rgba(251, 244, 219, 0.01));
+  border: 1px solid rgba(251, 244, 219, 0.08);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  max-width: 760px;
+}
+
+.bet-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.bet-help {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: -4px 0 12px;
+}
+
+/* Chip row */
+.chip-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.chip {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  border: 3px solid rgba(251, 244, 219, 0.15);
+  background: var(--vi-deep);
+  color: var(--vi-cream);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.chip:hover { transform: translateY(-2px); }
+.chip[aria-checked="true"] {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--vi-yellow);
+  box-shadow: 0 0 0 4px rgba(253, 224, 84, 0.18), 0 0 22px rgba(253, 224, 84, 0.45);
+}
+.chip--1   { background: radial-gradient(circle at 30% 30%, #1a3aff, #0a0a44); }
+.chip--5   { background: radial-gradient(circle at 30% 30%, #2afeff, #0d4a4c); }
+.chip--25  { background: radial-gradient(circle at 30% 30%, #fde054, #5a3a08); }
+.chip--100 { background: radial-gradient(circle at 30% 30%, #fc6b23, #4a1505); }
+.chip--500 { background: radial-gradient(circle at 30% 30%, #fb009f, #4a0030); }
+
+/* Confidence selector */
+.confidence-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.conf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: rgba(251, 244, 219, 0.03);
+  border: 1px solid rgba(251, 244, 219, 0.10);
+  border-radius: var(--radius-md);
+  color: var(--vi-cream);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+}
+.conf:hover { transform: translateY(-1px); }
+.conf-mult {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+}
+.conf-label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+/* Selected state — much more obvious now: bigger border, glowing aura, tinted background, lifted, scaled */
+.conf[aria-checked="true"] {
+  transform: translateY(-3px) scale(1.06);
+  border-width: 2px;
+}
+.conf[aria-checked="true"] .conf-label { color: var(--vi-cream); }
+.conf[aria-checked="true"] .conf-mult {
+  filter: brightness(1.2);
+}
+.conf--low[aria-checked="true"] {
+  border-color: var(--vi-cyan);
+  background: rgba(42, 254, 255, 0.16);
+  box-shadow: inset 0 0 22px rgba(42, 254, 255, 0.25), 0 0 28px rgba(42, 254, 255, 0.55), 0 0 60px rgba(42, 254, 255, 0.25);
+}
+.conf--mid[aria-checked="true"] {
+  border-color: var(--vi-yellow);
+  background: rgba(253, 224, 84, 0.16);
+  box-shadow: inset 0 0 22px rgba(253, 224, 84, 0.25), 0 0 28px rgba(253, 224, 84, 0.55), 0 0 60px rgba(253, 224, 84, 0.25);
+}
+.conf--high[aria-checked="true"] {
+  border-color: var(--vi-orange);
+  background: rgba(252, 107, 35, 0.18);
+  box-shadow: inset 0 0 22px rgba(252, 107, 35, 0.30), 0 0 32px rgba(252, 107, 35, 0.6), 0 0 70px rgba(252, 107, 35, 0.30);
+}
+.conf--xtreme[aria-checked="true"] {
+  border-color: var(--vi-pink);
+  background: rgba(251, 0, 159, 0.20);
+  box-shadow: inset 0 0 22px rgba(251, 0, 159, 0.35), 0 0 36px rgba(251, 0, 159, 0.65), 0 0 80px rgba(251, 0, 159, 0.35);
+  animation: xtremePulse 1.6s ease-in-out infinite;
+}
+@keyframes xtremePulse {
+  0%, 100% { box-shadow: inset 0 0 22px rgba(251, 0, 159, 0.35), 0 0 36px rgba(251, 0, 159, 0.65), 0 0 80px rgba(251, 0, 159, 0.35); }
+  50%      { box-shadow: inset 0 0 28px rgba(251, 0, 159, 0.50), 0 0 50px rgba(251, 0, 159, 0.85), 0 0 100px rgba(251, 0, 159, 0.45); }
+}
+
+/* Summary row */
+.bet-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(251, 244, 219, 0.12);
+}
+.summary-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+.summary-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 36px;
+  letter-spacing: 0.02em;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Primary CTA */
+.primary-btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 16px 38px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.22em;
+  color: var(--vi-deep);
+  background: linear-gradient(120deg, #fde054, #fc6b23 50%, #fb009f);
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  border-radius: var(--radius-pill);
+  transition: background-position 0.5s ease, transform 0.1s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 28px rgba(252, 107, 35, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+}
+.primary-btn:hover { background-position: 100% 0%; transform: translateY(-1px); }
+.primary-btn:active { transform: translateY(0); }
+.primary-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* History strip */
+.history-strip {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.history-label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+.history-empty { font-size: 12px; color: var(--text-muted); font-style: italic; }
+.history-pill {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid currentColor;
+}
+.history-pill.win { color: var(--vi-cyan); }
+.history-pill.loss { color: var(--vi-pink); opacity: 0.85; }
+
+/* ----- Play phase ----- */
+.phase-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.phase-banner {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 10px 22px;
+  background: rgba(251, 244, 219, 0.04);
+  border: 1px solid rgba(251, 244, 219, 0.12);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(10px);
+}
+.phase-banner-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.24em;
+  color: var(--vi-cream);
+}
+.phase-banner-countdown {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  min-width: 24px;
+  text-align: center;
+}
+/* Hide the countdown entirely when there's no number — keeps the banner tight
+   during SHUFFLE / PICK / TARGET phases. */
+.phase-banner-countdown:empty { display: none; }
+.phase-banner:has(.phase-banner-countdown:empty) { gap: 0; }
+
+.pond {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(42, 254, 255, 0.10), transparent 65%),
+    radial-gradient(ellipse 50% 70% at 20% 80%, rgba(149, 0, 198, 0.18), transparent 65%),
+    radial-gradient(ellipse 50% 70% at 80% 20%, rgba(251, 0, 159, 0.15), transparent 65%),
+    linear-gradient(180deg, #08010f, #02020a);
+  border: 1px solid rgba(251, 244, 219, 0.06);
+  overflow: hidden;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.6);
+}
+.pond::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(251, 244, 219, 0.04) 1px, transparent 1.5px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 90%);
+  pointer-events: none;
+}
+
+.phase-hint {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* Duck wrapper - positioned absolutely inside .pond */
+.duck-wrap {
+  position: absolute;
+  width: 22%;
+  aspect-ratio: 1 / 1;
+  transform-origin: center 80%;
+  will-change: transform;
+  cursor: default;
+  transition: filter 0.25s ease;
+}
+.duck-wrap.pickable { cursor: pointer; }
+.duck-wrap.pickable:hover { filter: drop-shadow(0 0 20px rgba(253, 224, 84, 0.7)); }
+.duck-wrap.lucky-reveal { filter: drop-shadow(0 0 30px rgba(253, 224, 84, 0.9)) drop-shadow(0 0 60px rgba(252, 107, 35, 0.6)); }
+.duck-wrap.decoy-reveal { filter: grayscale(0.4) brightness(0.7); }
+.duck-wrap.picked-correct::after,
+.duck-wrap.picked-wrong::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  border: 3px solid currentColor;
+  animation: ringPulse 1.2s ease-out infinite;
+}
+.duck-wrap.picked-correct { color: var(--vi-cyan); }
+.duck-wrap.picked-wrong { color: var(--vi-pink); }
+@keyframes ringPulse {
+  0%   { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* Pre-shuffle "target acquired" highlight */
+@keyframes targetPulse {
+  0%   { transform: scale(0.85); opacity: 0; }
+  20%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(var(--target-scale, 1.5)); opacity: 0; }
+}
+
+/* ----- Win VFX ----- */
+.vfx-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.vfx-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+@keyframes vfxBurst {
+  0%   { transform: translate(-50%, -50%) translate(0, 0) scale(0.3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translate(var(--vx), var(--vy)) scale(1); opacity: 0; }
+}
+.vfx-confetti {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 14px;
+  will-change: transform, opacity;
+  animation: confettiFall var(--cd, 2200ms) linear forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translate3d(0, -20px, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translate3d(var(--cx, 0px), 110vh, 0) rotate(var(--cr, 720deg)); opacity: 0.9; }
+}
+.vfx-flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(253, 224, 84, 0.5), transparent 60%);
+  pointer-events: none;
+  z-index: 9998;
+  animation: vfxFlash 0.6s ease-out forwards;
+}
+@keyframes vfxFlash {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.result-headline.jackpot {
+  background: linear-gradient(135deg, #fde054, #fc6b23 30%, #fb009f 60%, #2afeff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: jackpotShine 1.8s ease-in-out infinite;
+}
+@keyframes jackpotShine {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Ripple base — drawn under each duck */
+.duck-ripple {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 14%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(42, 254, 255, 0.35), transparent 70%);
+  filter: blur(2px);
+  animation: rippleBob 2.5s ease-in-out infinite;
+}
+@keyframes rippleBob {
+  0%, 100% { opacity: 0.35; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 0.55; transform: translateX(-50%) scale(1.15); }
+}
+
+/* ----- Result phase ----- */
+.phase-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+.result-card {
+  text-align: center;
+  padding: 48px 60px;
+  background: linear-gradient(180deg, rgba(251, 244, 219, 0.05), rgba(251, 244, 219, 0.01));
+  border: 1px solid rgba(251, 244, 219, 0.12);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  animation: cardPop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+@keyframes cardPop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+.result-headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 64px;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.result-headline.win  { background: linear-gradient(135deg, #2afeff, #fde054 60%, #fc6b23); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.result-headline.loss { background: linear-gradient(135deg, #fb009f, #9500c6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.result-amount {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 48px;
+  letter-spacing: 0.02em;
+  color: var(--vi-cream);
+  margin-bottom: 8px;
+}
+.result-detail {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.result-actions { display: flex; gap: 14px; justify-content: center; }
+
+/* ----- Footer ----- */
+.footnote {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 36px;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 800;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.4));
+}
+.mute-btn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(251, 244, 219, 0.2);
+  color: var(--vi-cream);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.mute-btn:hover { border-color: var(--vi-cyan); color: var(--vi-cyan); }
+.mute-btn[aria-pressed="true"] { color: var(--text-muted); }
+
+/* ----- Responsive ----- */
+@media (max-width: 720px) {
+  .topbar { padding: 16px 18px; }
+  .originals-tag { display: none; }
+  .stage { padding: 16px 18px 100px; }
+  .game-title { font-size: 56px; }
+  .bet-panel { padding: 20px; }
+  .confidence-row { grid-template-columns: repeat(2, 1fr); }
+  .chip { width: 56px; height: 56px; font-size: 14px; }
+  .bet-summary { flex-direction: column; align-items: stretch; }
+  .summary-value { font-size: 28px; }
+  .footnote { padding: 10px 18px; font-size: 9px; letter-spacing: 0.12em; }
+  .footnote span:first-c
+</style>
+</head>
+<body>
+  <!-- Decorative neon background layers (matches VI "Expressive GFX" + "Decorative GFX") -->
+  <div class="bg-streaks" aria-hidden="true"></div>
+  <div class="bg-halftone" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-text">
+        <span class="brand-line-1">VEGAS</span>
+        <span class="brand-line-2">INFINITE</span>
+      </div>
+      <span class="originals-tag">ORIGINALS</span>
+    </div>
+
+    <div class="balance-pill" id="balanceDisplay">
+      <span class="balance-label">BALANCE</span>
+      <span class="balance-amount" id="balanceAmount">1,000</span>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- Game phases swap into this container -->
+    <section class="phase phase-bet" id="phaseBet">
+      <h1 class="game-title">DECOY</h1>
+      <p class="game-tagline">Three ducks. One tell. Trust your eyes.</p>
+
+      <div class="bet-panel">
+        <div class="bet-section">
+          <label class="bet-label">YOUR BET</label>
+          <div class="chip-row" role="radiogroup" aria-label="Bet amount">
+            <button class="chip chip--1" data-bet="1" role="radio" aria-checked="false">1</button>
+            <button class="chip chip--5" data-bet="5" role="radio" aria-checked="false">5</button>
+            <button class="chip chip--25" data-bet="25" role="radio" aria-checked="true">25</button>
+            <button class="chip chip--100" data-bet="100" role="radio" aria-checked="false">100</button>
+            <button class="chip chip--500" data-bet="500" role="radio" aria-checked="false">500</button>
+          </div>
+        </div>
+
+        <div class="bet-section">
+          <label class="bet-label">CONFIDENCE</label>
+          <p class="bet-help">Higher payout, but you must be right.</p>
+          <div class="confidence-row" role="radiogroup" aria-label="Confidence multiplier">
+            <button class="conf conf--low" data-conf="2" role="radio" aria-checked="true">
+              <span class="conf-mult">2&times;</span>
+              <span class="conf-label">SAFE</span>
+            </button>
+            <button class="conf conf--mid" data-conf="5" role="radio" aria-checked="false">
+              <span class="conf-mult">5&times;</span>
+              <span class="conf-label">BOLD</span>
+            </button>
+            <button class="conf conf--high" data-conf="15" role="radio" aria-checked="false">
+              <span class="conf-mult">15&times;</span>
+              <span class="conf-label">SHARP</span>
+            </button>
+            <button class="conf conf--xtreme" data-conf="40" role="radio" aria-checked="false">
+              <span class="conf-mult">40&times;</span>
+              <span class="conf-label">EAGLE-EYE</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bet-summary">
+          <div>
+            <span class="summary-label">POTENTIAL WIN</span>
+            <span class="summary-value" id="potentialWin">50</span>
+          </div>
+          <button class="primary-btn" id="startBtn">START ROUND</button>
+        </div>
+      </div>
+
+      <div class="history-strip" id="historyStrip" aria-label="Recent results">
+        <span class="history-label">RECENT</span>
+        <span class="history-empty">No rounds yet</span>
+      </div>
+    </section>
+
+    <section class="phase phase-play hidden" id="phasePlay">
+      <div class="phase-banner" id="phaseBanner">
+        <span class="phase-banner-text" id="phaseBannerText">WATCH CLOSELY</span>
+        <span class="phase-banner-countdown" id="phaseBannerCountdown">5</span>
+      </div>
+
+      <div class="pond" id="pond">
+        <!-- Ducks injected here by JS -->
+      </div>
+
+      <div class="phase-hint" id="phaseHint">One of them is the Lucky Duck. Find the tell.</div>
+    </section>
+
+    <section class="phase phase-result hidden" id="phaseResult">
+      <div class="result-card" id="resultCard">
+        <div class="result-headline" id="resultHeadline">WIN</div>
+        <div class="result-amount" id="resultAmount">+250</div>
+        <div class="result-detail" id="resultDetail">25 &times; 10 confidence</div>
+        <div class="result-actions">
+          <button class="primary-btn" id="playAgainBtn">PLAY AGAIN</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footnote">
+    <span>A VEGAS INFINITE ORIGINAL &mdash; web-native, never been done.</span>
+    <button class="mute-btn" id="muteBtn" aria-label="Toggle sound" aria-pressed="false">
+      <span class="mute-icon" id="muteIcon">&#9836;</span>
+    </button>
+  </footer>
+
+  <script>
+/* =========================================================
+   DECOY — Ducky factory + animation rig
+   --------------------------------------------------------
+   Renders the Vegas Infinite Ducky as an inline SVG with
+   addressable parts (body, wing, beak, eye, sparkle) so that
+   each duck can be animated independently via the "tell" rig.
+
+   The duck silhouette is hand-tuned to match the reference
+   turnaround sheet (yellow rubber-duck with orange beak).
+   ========================================================= */
+
+(function (global) {
+  'use strict';
+
+  // ---- Unique IDs per duck so SVG <defs> don't collide ----
+  let _idCounter = 0;
+  function nextId(prefix) { return `${prefix}-${++_idCounter}-${Math.floor(Math.random() * 9999)}`; }
+
+  /**
+   * Build a single duck DOM node (positioned wrapper + svg).
+   * Returns { el, svg, parts, controller } where controller has
+   * setTell(), pickable(true|false), reveal(isLucky), reset(), etc.
+   *
+   * @param {number} index    0/1/2 — visual variation seed
+   * @param {object} tellSpec { type, intensity } for this duck. Pass null for "decoy" (no tell).
+   */
+  function createDuck(index, tellSpec) {
+    const wrap = document.createElement('div');
+    wrap.className = 'duck-wrap';
+    wrap.setAttribute('data-duck-index', String(index));
+
+    // ripple underlay
+    const ripple = document.createElement('div');
+    ripple.className = 'duck-ripple';
+    wrap.appendChild(ripple);
+
+    // SVG duck
+    const bodyGradId = nextId('body');
+    const beakGradId = nextId('beak');
+    const shineGradId = nextId('shine');
+    const glowFilterId = nextId('glow');
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 200 200');
+    svg.setAttribute('xmlns', svgNS);
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+    svg.style.overflow = 'visible';
+    svg.innerHTML = `
+      <defs>
+        <radialGradient id="${bodyGradId}" cx="40%" cy="35%" r="70%">
+          <stop offset="0%"  stop-color="#FFF1A8" />
+          <stop offset="40%" stop-color="#FDE054" />
+          <stop offset="100%" stop-color="#E0A800" />
+        </radialGradient>
+        <linearGradient id="${beakGradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"  stop-color="#FFB347" />
+          <stop offset="100%" stop-color="#FC6B23" />
+        </linearGradient>
+        <radialGradient id="${shineGradId}" cx="35%" cy="25%" r="35%">
+          <stop offset="0%"  stop-color="rgba(255,255,255,0.85)" />
+          <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+        </radialGradient>
+        <filter id="${glowFilterId}" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- shadow on water -->
+      <ellipse class="duck-shadow" cx="100" cy="172" rx="55" ry="6" fill="rgba(0,0,0,0.4)" />
+
+      <!-- whole duck group is what we animate (bob, tilt, scale) -->
+      <g class="duck-body-group" filter="url(#${glowFilterId})">
+
+        <!-- TAIL -->
+        <path class="duck-tail" d="M158 132 q22 -6 24 -22 q-10 0 -22 8 q-8 6 -10 14 Z" fill="url(#${bodyGradId})"/>
+
+        <!-- BODY (main oval) -->
+        <ellipse class="duck-body" cx="100" cy="130" rx="62" ry="42" fill="url(#${bodyGradId})"/>
+
+        <!-- WING -->
+        <path class="duck-wing"
+              d="M86 124 q-6 -22 18 -26 q22 -3 28 18 q2 14 -10 22 q-12 4 -24 0 q-10 -3 -12 -14 Z"
+              fill="#E5B91A" opacity="0.8" />
+
+        <!-- HEAD -->
+        <circle class="duck-head" cx="72" cy="80" r="38" fill="url(#${bodyGradId})"/>
+
+        <!-- BEAK -->
+        <path class="duck-beak"
+              d="M34 80 q-10 -2 -10 6 q0 7 10 6 q12 -1 18 -6 q-6 -5 -18 -6 Z"
+              fill="url(#${beakGradId})"/>
+        <path class="duck-beak-line" d="M44 86 L52 86" stroke="#9A3F12" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+
+        <!-- EYE -->
+        <g class="duck-eye-group">
+          <circle class="duck-eye" cx="68" cy="74" r="5.5" fill="#0a0a0a"/>
+          <circle class="duck-eye-glint" cx="66.5" cy="72.5" r="1.8" fill="#ffffff"/>
+          <!-- the "sparkle" is what we use for the eye-glint tell -->
+          <circle class="duck-sparkle" cx="68" cy="74" r="0" fill="#2afeff" opacity="0"/>
+        </g>
+
+        <!-- Shine highlight on the body -->
+        <ellipse class="duck-shine" cx="80" cy="105" rx="20" ry="12" fill="url(#${shineGradId})"/>
+      </g>
+    `;
+
+    wrap.appendChild(svg);
+
+    // ---- Cached refs ----
+    const parts = {
+      bodyGroup: svg.querySelector('.duck-body-group'),
+      eyeGroup: svg.querySelector('.duck-eye-group'),
+      sparkle: svg.querySelector('.duck-sparkle'),
+      wing: svg.querySelector('.duck-wing'),
+      shine: svg.querySelector('.duck-shine'),
+      shadow: svg.querySelector('.duck-shadow'),
+      glowFilter: svg.querySelector(`#${glowFilterId}`),
+    };
+
+    // ---- Animation state ----
+    let rafId = null;
+    let t0 = performance.now();
+    // Per-duck baseline parameters so even decoys don't look identical
+    const baseBobSpeed = 1.0 + (index * 0.07);   // hz factor
+    const baseBobDepth = 4.0;                    // px
+    const baseSwayAmp = 1.6;                     // deg
+    const baseSwaySpeed = 0.7 + (index * 0.05);
+
+    // Tell overrides (defaults: no tell)
+    let activeTell = tellSpec || { type: 'none', intensity: 0 };
+    let activeTellSlow = false;
+    let extraGlow = 0;
+
+    function setTell(spec) {
+      activeTell = spec || { type: 'none', intensity: 0 };
+    }
+
+    // Sparkle pulse interval (used for eye-glint tell).
+    // Start delayed so the first pulse doesn't fire on frame 0 — gives the
+    // duck a beat to appear and settle before any tells become visible.
+    let sparkleNextAt = performance.now() + 2000;
+    function maybeSparkle(now) {
+      if (activeTell.type !== 'eyeGlint') return;
+      if (now < sparkleNextAt) return;
+      // intensity 0-1; lower intensity = longer gap, smaller pulse
+      const gap = 700 + (1 - activeTell.intensity) * 1800;
+      sparkleNextAt = now + gap;
+      // Smooth fade-in then fade-out — no popping
+      const s = parts.sparkle;
+      const peakR = 6 + activeTell.intensity * 10;
+      const peakO = 0.7 + activeTell.intensity * 0.3;
+      // Fade IN
+      s.style.transition = 'r 0.22s ease-out, opacity 0.22s ease-out';
+      requestAnimationFrame(() => {
+        s.setAttribute('r', peakR);
+        s.setAttribute('opacity', peakO);
+      });
+      // Fade OUT after brief hold
+      setTimeout(() => {
+        s.style.transition = 'r 0.45s ease-in, opacity 0.45s ease-in';
+        requestAnimationFrame(() => {
+          s.setAttribute('r', 0);
+          s.setAttribute('opacity', 0);
+        });
+      }, 260);
+      // Clear transition styling after the full cycle
+      setTimeout(() => { s.style.transition = ''; }, 760);
+    }
+
+    // Wing-flap state. Delayed start (see sparkleNextAt rationale).
+    let wingNextAt = performance.now() + 2000;
+    let wingFlap = 0; // 0..1
+    function updateWing(now, dt) {
+      if (activeTell.type === 'wingFlap' && now > wingNextAt) {
+        const gap = 900 + (1 - activeTell.intensity) * 1500;  // more frequent
+        wingNextAt = now + gap;
+        wingFlap = 1;
+      }
+      // decay
+      if (wingFlap > 0) {
+        wingFlap = Math.max(0, wingFlap - dt * 0.003);
+        const tilt = Math.sin(wingFlap * Math.PI) * (18 + activeTell.intensity * 22);  // much bigger angle
+        parts.wing.setAttribute('transform', `rotate(${-tilt} 110 124)`);
+      } else {
+        parts.wing.setAttribute('transform', '');
+      }
+    }
+
+    function frame(now) {
+      const dt = now - t0;
+      const tSec = dt / 1000;
+
+      // base bob/sway
+      let bobSpeed = baseBobSpeed;
+      let bobDepth = baseBobDepth;
+      let swayAmp = baseSwayAmp;
+      let swaySpeed = baseSwaySpeed;
+
+      // ----- Tell modifiers (clearly visible at high intensity, subtle at low) -----
+      if (activeTell.type === 'fasterBob') {
+        bobSpeed *= 1 + activeTell.intensity * 1.6;   // up to 2.6x faster
+        bobDepth *= 1 + activeTell.intensity * 1.2;   // up to 2.2x deeper
+      } else if (activeTell.type === 'sway') {
+        swayAmp *= 1 + activeTell.intensity * 5.0;    // up to 6x wider sway
+        swaySpeed *= 1 + activeTell.intensity * 0.6;
+      } else if (activeTell.type === 'glow') {
+        // Much bigger glow filter on lucky duck
+        const target = 3.5 + activeTell.intensity * 12;
+        const fb = parts.glowFilter.querySelector('feGaussianBlur');
+        fb.setAttribute('stdDeviation', target);
+      } else if (activeTell.type === 'tilt') {
+        // Listing distinctly to one side
+        swayAmp += activeTell.intensity * 8;
+      }
+
+      const bobY = Math.sin(tSec * Math.PI * bobSpeed) * bobDepth;
+      const swayDeg = Math.sin(tSec * Math.PI * swaySpeed) * swayAmp;
+
+      parts.bodyGroup.setAttribute(
+        'transform',
+        `translate(0 ${bobY}) rotate(${swayDeg} 100 130)`
+      );
+
+      // shadow squash inversely to bob
+      const scl = 1 - bobY / 40;
+      parts.shadow.setAttribute('rx', 55 * scl);
+      parts.shadow.setAttribute('opacity', 0.4 - bobY / 200);
+
+      maybeSparkle(now);
+      updateWing(now, dt);
+
+      t0 = now;
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (rafId) return;
+      t0 = performance.now();
+      // Re-arm tell delays from the current moment so they're consistent
+      // even if start() is called well after construction.
+      sparkleNextAt = t0 + 2000;
+      wingNextAt = t0 + 2000;
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    function setPickable(can) {
+      wrap.classList.toggle('pickable', !!can);
+    }
+
+    function revealAsLucky() {
+      wrap.classList.add('lucky-reveal');
+      // emphasize glow
+      const fb = parts.glowFilter.querySelector('feGaussianBlur');
+      fb.setAttribute('stdDeviation', 8);
+    }
+
+    /**
+     * Brief pre-shuffle "this is the one!" highlight.
+     * Intensity 0..1 — higher = more obvious, longer.
+     * Returns a promise that resolves when the highlight has fully faded.
+     */
+    function flashAsTarget(intensity) {
+      if (intensity <= 0) return Promise.resolve();
+      const ring = document.createElement('div');
+      ring.className = 'duck-target-ring';
+      // Inline styles so this works even without external CSS
+      const dur = 600 + intensity * 700;     // ms
+      const finalScale = 1.2 + intensity * 0.5;
+      const opacity = 0.4 + intensity * 0.5;
+      ring.style.cssText = `
+        position:absolute;
+        inset:-12%;
+        border-radius:50%;
+        border: 4px solid #fde054;
+        box-shadow: 0 0 30px rgba(253,224,84,${opacity}), 0 0 60px rgba(252,107,35,${opacity * 0.7});
+        opacity: ${opacity};
+        transform: scale(0.85);
+        pointer-events: none;
+        animation: targetPulse ${dur}ms cubic-bezier(0.2,0.9,0.3,1.2) forwards;
+        --target-scale: ${finalScale};
+      `;
+      wrap.appendChild(ring);
+      // Also boost the duck's own glow briefly
+      const fb = parts.glowFilter.querySelector('feGaussianBlur');
+      const prev = fb.getAttribute('stdDeviation');
+      fb.setAttribute('stdDeviation', 7 + intensity * 4);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          ring.remove();
+          fb.setAttribute('stdDeviation', prev || 3.5);
+          resolve();
+        }, dur);
+      });
+    }
+    function revealAsDecoy() {
+      wrap.classList.add('decoy-reveal');
+    }
+    function markPicked(correct) {
+      wrap.classList.add(correct ? 'picked-correct' : 'picked-wrong');
+    }
+    function resetVisuals() {
+      wrap.classList.remove('lucky-reveal', 'decoy-reveal', 'picked-correct', 'picked-wrong');
+      const fb = parts.glowFilter.querySelector('feGaussianBlur');
+      fb.setAttribute('stdDeviation', 3.5);
+    }
+
+    function positionPercent(xPct, yPct) {
+      wrap.style.left = xPct + '%';
+      wrap.style.top = yPct + '%';
+    }
+    function getPositionPercent() {
+      return { x: parseFloat(wrap.style.left) || 0, y: parseFloat(wrap.style.top) || 0 };
+    }
+
+    /** Smoothly move to (xPct, yPct) over `ms` milliseconds. Returns Promise. */
+    function moveTo(xPct, yPct, ms, easing = 'cubic-bezier(0.65, 0, 0.35, 1)') {
+      return new Promise(resolve => {
+        wrap.style.transition = `left ${ms}ms ${easing}, top ${ms}ms ${easing}`;
+        // Trigger transition next frame
+        requestAnimationFrame(() => {
+          wrap.style.left = xPct + '%';
+          wrap.style.top = yPct + '%';
+        });
+        setTimeout(() => {
+          wrap.style.transition = '';
+          resolve();
+        }, ms + 20);
+      });
+    }
+
+    return {
+      el: wrap,
+      svg,
+      parts,
+      controller: {
+        start, stop,
+        setTell, setPickable,
+        revealAsLucky, revealAsDecoy, flashAsTarget,
+        markPicked, resetVisuals,
+        positionPercent, getPositionPercent, moveTo,
+      }
+    };
+  }
+
+  // ---- TELL CATALOG --------------------------------------------------
+  // Each tell is a (type, intensity) — intensity in [0..1].
+  // Random selection determines per-round difficulty.
+  // NOTE: 'eyeGlint' was previously in this list but read as a visual bug
+  // ("blue dot flashing on duck's eye") rather than gameplay. Removed.
+  const TELL_TYPES = [
+    { type: 'fasterBob', difficultyFloor: 0.15 },
+    { type: 'sway',      difficultyFloor: 0.25 },
+    { type: 'glow',      difficultyFloor: 0.3 },
+    { type: 'wingFlap',  difficultyFloor: 0.1 }, // easier (visible)
+    { type: 'tilt',      difficultyFloor: 0.35 },
+  ];
+
+  function pickRandomTell(difficulty = 0.5) {
+    // difficulty 0..1: 0 = easy/obvious tell, 1 = nearly invisible
+    const pick = TELL_TYPES[Math.floor(Math.random() * TELL_TYPES.length)];
+    // Intensity is INVERSE to difficulty (harder = subtler tell)
+    const base = 1 - difficulty;
+    const jitter = (Math.random() - 0.5) * 0.2;
+    const intensity = Math.max(0.15, Math.min(1.0, base + jitter));
+    return { type: pick.type, intensity };
+  }
+
+  global.Ducky = {
+    create: createDuck,
+    pickRandomTell,
+    TELL_TYPES,
+  };
+})(window);
+
+</script>
+  <script>
+/* =========================================================
+   DECOY — Game state machine, UI bindings, and audio
+   ========================================================= */
+
+(function () {
+  'use strict';
+
+  // ---- State -----------------------------------------------------
+  const state = {
+    balance: 1000,
+    bet: 25,
+    confidence: 2,
+    history: [],          // array of { delta, win }
+    phase: 'bet',         // bet | tell | shuffle | pick | reveal
+    ducks: [],            // [{el, controller, isLucky, tell}]
+    luckyIndex: -1,
+    muted: false,
+  };
+
+  // ---- DOM refs --------------------------------------------------
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+  const els = {
+    phaseBet: $('#phaseBet'),
+    phasePlay: $('#phasePlay'),
+    phaseResult: $('#phaseResult'),
+    balanceAmount: $('#balanceAmount'),
+    potentialWin: $('#potentialWin'),
+    startBtn: $('#startBtn'),
+    playAgainBtn: $('#playAgainBtn'),
+    pond: $('#pond'),
+    phaseBanner: $('#phaseBanner'),
+    phaseBannerText: $('#phaseBannerText'),
+    phaseBannerCountdown: $('#phaseBannerCountdown'),
+    phaseHint: $('#phaseHint'),
+    resultHeadline: $('#resultHeadline'),
+    resultAmount: $('#resultAmount'),
+    resultDetail: $('#resultDetail'),
+    resultCard: $('#resultCard'),
+    historyStrip: $('#historyStrip'),
+    muteBtn: $('#muteBtn'),
+    chips: $$('.chip'),
+    confs: $$('.conf'),
+  };
+
+  // ---- Helpers ---------------------------------------------------
+  const fmt = n => n.toLocaleString('en-US');
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+
+  function updateBalance(delta) {
+    state.balance = Math.max(0, state.balance + delta);
+    els.balanceAmount.textContent = fmt(state.balance);
+  }
+
+  function updatePotentialWin() {
+    const win = state.bet * state.confidence;
+    els.potentialWin.textContent = fmt(win);
+  }
+
+  function setPhase(phase) {
+    state.phase = phase;
+    els.phaseBet.classList.toggle('hidden', phase !== 'bet');
+    els.phasePlay.classList.toggle('hidden', !['tell', 'shuffle', 'pick'].includes(phase));
+    els.phaseResult.classList.toggle('hidden', phase !== 'reveal');
+  }
+
+  // ---- Audio (Web Audio API, no external deps) -------------------
+  let audioCtx = null;
+  function ac() {
+    if (!audioCtx) {
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch (e) { audioCtx = null; }
+    }
+    return audioCtx;
+  }
+
+  function tone(freq, dur, type = 'sine', vol = 0.18) {
+    if (state.muted) return;
+    const ctx = ac(); if (!ctx) return;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(freq, ctx.currentTime);
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+    o.connect(g).connect(ctx.destination);
+    o.start();
+    o.stop(ctx.currentTime + dur + 0.05);
+  }
+
+  function quack() {
+    // Two short toned pulses to mimic a quack
+    if (state.muted) return;
+    const ctx = ac(); if (!ctx) return;
+    const make = (startOffset, baseFreq) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(baseFreq, ctx.currentTime + startOffset);
+      o.frequency.exponentialRampToValueAtTime(baseFreq * 0.55, ctx.currentTime + startOffset + 0.13);
+      g.gain.setValueAtTime(0, ctx.currentTime + startOffset);
+      g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + startOffset + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + startOffset + 0.15);
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass'; bp.frequency.value = 1200; bp.Q.value = 4;
+      o.connect(bp).connect(g).connect(ctx.destination);
+      o.start(ctx.currentTime + startOffset);
+      o.stop(ctx.currentTime + startOffset + 0.2);
+    };
+    make(0, 520);
+    make(0.16, 460);
+  }
+
+  function splash() {
+    if (state.muted) return;
+    const ctx = ac(); if (!ctx) return;
+    // Noise burst with high-pass filter
+    const bufSize = ctx.sampleRate * 0.5;
+    const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufSize);
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const f = ctx.createBiquadFilter();
+    f.type = 'highpass'; f.frequency.value = 800;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.18, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+    src.connect(f).connect(g).connect(ctx.destination);
+    src.start();
+  }
+
+  function winChime() {
+    if (state.muted) return;
+    [880, 1100, 1320, 1760].forEach((f, i) => setTimeout(() => tone(f, 0.35, 'sine', 0.16), i * 90));
+  }
+
+  function jackpotFanfare() {
+    if (state.muted) return;
+    // C-major ascending arpeggio + brass-y top notes — restrained, not Vegas-slot-machine loud
+    const seq = [
+      { f: 523,  d: 0.22, v: 0.14, t: 'triangle' }, // C5
+      { f: 659,  d: 0.22, v: 0.14, t: 'triangle' }, // E5
+      { f: 784,  d: 0.22, v: 0.14, t: 'triangle' }, // G5
+      { f: 1047, d: 0.30, v: 0.16, t: 'triangle' }, // C6
+      { f: 1319, d: 0.45, v: 0.16, t: 'sine'     }, // E6
+      { f: 1568, d: 0.55, v: 0.14, t: 'sine'     }, // G6
+    ];
+    seq.forEach((n, i) => setTimeout(() => tone(n.f, n.d, n.t, n.v), 380 + i * 110));
+    // soft sub-rumble for body
+    setTimeout(() => tone(110, 0.7, 'sine', 0.08), 380);
+  }
+
+  function lossThud() {
+    if (state.muted) return;
+    tone(180, 0.4, 'sawtooth', 0.14);
+    setTimeout(() => tone(120, 0.35, 'sawtooth', 0.12), 80);
+  }
+
+  function tick(highPitch = false) {
+    tone(highPitch ? 900 : 600, 0.05, 'square', 0.06);
+  }
+
+  // ---- Win VFX --------------------------------------------------
+  // Visual feedback scales with confidence multiplier. Tiers:
+  //   2x   -> small ring + chime
+  //   5x   -> particle burst + chime
+  //   15x  -> burst + confetti + screen flash + extended chime
+  //   40x  -> all of the above + JACKPOT title + multi-quack + bigger everything
+  const VI_COLORS = ['#fde054', '#fc6b23', '#fb009f', '#9500c6', '#2afeff', '#173dff'];
+
+  function getVfxLayer() {
+    let layer = document.querySelector('.vfx-layer');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.className = 'vfx-layer';
+      document.body.appendChild(layer);
+    }
+    return layer;
+  }
+
+  function spawnBurst(centerX, centerY, count) {
+    const layer = getVfxLayer();
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'vfx-particle';
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 120 + Math.random() * 280;
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed - 40; // bias upward
+      const size = 6 + Math.random() * 10;
+      const color = VI_COLORS[Math.floor(Math.random() * VI_COLORS.length)];
+      p.style.cssText = `
+        left: ${centerX}px; top: ${centerY}px;
+        width: ${size}px; height: ${size}px;
+        background: ${color};
+        box-shadow: 0 0 14px ${color};
+        --vx: ${vx}px; --vy: ${vy}px;
+        animation: vfxBurst ${800 + Math.random() * 600}ms cubic-bezier(0.15,0.65,0.4,1) forwards;
+      `;
+      layer.appendChild(p);
+      setTimeout(() => p.remove(), 1600);
+    }
+  }
+
+  function spawnConfetti(count) {
+    const layer = getVfxLayer();
+    const w = window.innerWidth;
+    for (let i = 0; i < count; i++) {
+      const c = document.createElement('div');
+      c.className = 'vfx-confetti';
+      const startX = Math.random() * w;
+      const drift = (Math.random() - 0.5) * 240;
+      const dur = 1800 + Math.random() * 1600;
+      const rot = (Math.random() - 0.5) * 1440;
+      const color = VI_COLORS[Math.floor(Math.random() * VI_COLORS.length)];
+      c.style.cssText = `
+        left: ${startX}px;
+        background: ${color};
+        --cx: ${drift}px; --cr: ${rot}deg; --cd: ${dur}ms;
+        animation-delay: ${Math.random() * 600}ms;
+      `;
+      layer.appendChild(c);
+      setTimeout(() => c.remove(), dur + 800);
+    }
+  }
+
+  function spawnFlash() {
+    const flash = document.createElement('div');
+    flash.className = 'vfx-flash';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 700);
+  }
+
+  function fireWinVfx(conf, sourceEl) {
+    // center of source el on screen
+    const r = sourceEl.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+
+    if (conf <= 2) {
+      // Tier 1: small burst, no flash
+      spawnBurst(cx, cy, 24);
+    } else if (conf <= 5) {
+      // Tier 2: bigger burst
+      spawnBurst(cx, cy, 50);
+      spawnBurst(cx, cy, 30); // second wave
+      setTimeout(() => spawnBurst(cx, cy, 20), 150);
+    } else if (conf <= 15) {
+      // Tier 3: burst + confetti + flash
+      spawnFlash();
+      spawnBurst(cx, cy, 90);
+      spawnConfetti(40);
+      setTimeout(() => spawnBurst(cx, cy, 50), 200);
+    } else {
+      // Tier 4: full JACKPOT — flash + huge burst + heavy confetti + multi-quack
+      spawnFlash();
+      spawnBurst(cx, cy, 160);
+      spawnConfetti(90);
+      setTimeout(() => { spawnBurst(cx, cy, 80); spawnConfetti(40); }, 250);
+      setTimeout(() => { spawnFlash(); spawnBurst(cx, cy, 60); }, 600);
+      // extra quacks
+      setTimeout(() => quack(), 200);
+      setTimeout(() => quack(), 500);
+    }
+  }
+
+  // ---- Bet controls ---------------------------------------------
+  els.chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      els.chips.forEach(c => c.setAttribute('aria-checked', 'false'));
+      chip.setAttribute('aria-checked', 'true');
+      state.bet = parseInt(chip.dataset.bet, 10);
+      updatePotentialWin();
+      tick(true);
+    });
+  });
+
+  els.confs.forEach(conf => {
+    conf.addEventListener('click', () => {
+      els.confs.forEach(c => c.setAttribute('aria-checked', 'false'));
+      conf.setAttribute('aria-checked', 'true');
+      state.confidence = parseInt(conf.dataset.conf, 10);
+      updatePotentialWin();
+      tick();
+    });
+  });
+
+  els.muteBtn.addEventListener('click', () => {
+    state.muted = !state.muted;
+    els.muteBtn.setAttribute('aria-pressed', String(state.muted));
+    els.muteBtn.querySelector('#muteIcon').innerHTML = state.muted ? '&#10006;' : '&#9836;';
+  });
+
+  // ---- Round lifecycle -------------------------------------------
+  els.startBtn.addEventListener('click', startRound);
+  els.playAgainBtn.addEventListener('click', () => {
+    teardownDucks();
+    setPhase('bet');
+  });
+
+  function teardownDucks() {
+    state.ducks.forEach(d => d.controller.stop());
+    state.ducks = [];
+    els.pond.innerHTML = '';
+  }
+
+  async function startRound() {
+    if (state.bet > state.balance) {
+      flashStartBtn('NOT ENOUGH BALANCE');
+      return;
+    }
+    // Resume audio context on first user gesture
+    ac();
+    if (audioCtx && audioCtx.state === 'suspended') { try { await audioCtx.resume(); } catch(e){} }
+
+    // Deduct bet (held until result)
+    updateBalance(-state.bet);
+
+    teardownDucks();
+    setPhase('tell');
+
+    // ---- Build 3 ducks --------------------------------------------
+    // Difficulty climbs with confidence multiplier: higher conf = harder tell.
+    const confDifficulty = {
+      2:  0.25,   // SAFE   - easy tell
+      5:  0.45,   // BOLD
+      15: 0.65,   // SHARP
+      40: 0.85,   // EAGLE-EYE - nearly invisible
+    }[state.confidence] || 0.5;
+
+    // Pick the lucky duck
+    state.luckyIndex = Math.floor(Math.random() * 3);
+    const tell = Ducky.pickRandomTell(confDifficulty);
+
+    // Lay out positions across the pond
+    const startPositions = [
+      { x: 12, y: 35 },
+      { x: 39, y: 40 },
+      { x: 66, y: 35 },
+    ];
+
+    for (let i = 0; i < 3; i++) {
+      const isLucky = (i === state.luckyIndex);
+      const tellSpec = isLucky ? tell : { type: 'none', intensity: 0 };
+      const d = Ducky.create(i, tellSpec);
+      d.controller.positionPercent(startPositions[i].x, startPositions[i].y);
+      els.pond.appendChild(d.el);
+      d.controller.start();
+      state.ducks.push({ ...d, isLucky, tell: tellSpec });
+    }
+
+    // ---- TELL phase ------------------------------------------------
+    els.phaseBannerText.textContent = 'WATCH CLOSELY';
+    els.phaseHint.textContent = describeTellHint(tell, state.confidence);
+    await countdown(5, () => tick());
+
+    // ---- PRE-SHUFFLE TARGET CUE ----------------------------------
+    // Briefly highlight the Lucky Duck to confirm identification.
+    // Cue intensity scales inversely with confidence: SAFE gets clear cue,
+    // EAGLE-EYE gets nothing — you're on your own.
+    const cueIntensity = {
+      2:  1.0,    // SAFE      — bright, long ring
+      5:  0.55,   // BOLD      — moderate ring
+      15: 0.20,   // SHARP     — faint pulse
+      40: 0.12,   // EAGLE-EYE — barely-there blink (just enough acknowledgement)
+    }[state.confidence] ?? 0.5;
+    if (cueIntensity > 0) {
+      els.phaseBannerText.textContent = 'TARGET ACQUIRED';
+      els.phaseHint.textContent = 'Keep your eye on it...';
+      await state.ducks[state.luckyIndex].controller.flashAsTarget(cueIntensity);
+    }
+
+    // ---- SHUFFLE phase --------------------------------------------
+    setPhase('shuffle');
+    els.phaseBannerText.textContent = 'SHUFFLE';
+    els.phaseBannerCountdown.textContent = '';
+    els.phaseHint.textContent = 'Keep your eye on the Lucky Duck...';
+    // Hide tell during shuffle for ALL ducks (they all bob identically)
+    state.ducks.forEach(d => d.controller.setTell({ type: 'none', intensity: 0 }));
+    splash();
+    await shufflePositions();
+
+    // ---- PICK phase -----------------------------------------------
+    setPhase('pick');
+    els.phaseBannerText.textContent = 'PICK ONE';
+    els.phaseBannerCountdown.textContent = '';
+    els.phaseHint.textContent = 'Trust your eyes. Click a duck.';
+    state.ducks.forEach((d, i) => {
+      d.controller.setPickable(true);
+      d.el.addEventListener('click', () => onPick(i), { once: true });
+    });
+  }
+
+  function describeTellHint(tell, conf) {
+    // Hint copy scales with confidence multiplier:
+    //   SAFE (2x)  — name the exact tell type ("Watch for: FASTER BOB")
+    //   BOLD (5x)  — name the category ("Watch for: a motion tell")
+    //   SHARP (15x)— vague ("Watch for: a small difference")
+    //   EAGLE-EYE  — no hint
+    const tellNames = {
+      fasterBob: 'FASTER BOB',
+      sway: 'WIDER SWAY',
+      glow: 'BRIGHTER GLOW',
+      wingFlap: 'WING FLAP',
+      tilt: 'SUBTLE TILT',
+    };
+    const tellCats = {
+      fasterBob: 'a motion tell',
+      sway: 'a motion tell',
+      glow: 'a visual tell',
+      wingFlap: 'a movement tell',
+      tilt: 'a motion tell',
+    };
+    if (conf <= 2)  return 'Watch for: ' + tellNames[tell.type];
+    if (conf <= 5)  return 'Watch for: ' + tellCats[tell.type];
+    if (conf <= 15) return 'Watch for: a small difference';
+    return 'No hint. Trust your eyes.';
+  }
+
+  function countdown(seconds, onTick) {
+    return new Promise(resolve => {
+      let s = seconds;
+      els.phaseBannerCountdown.textContent = s;
+      const id = setInterval(() => {
+        s -= 1;
+        if (s <= 0) {
+          clearInterval(id);
+          els.phaseBannerCountdown.textContent = '0';
+          resolve();
+        } else {
+          els.phaseBannerCountdown.textContent = s;
+          onTick && onTick(s);
+        }
+      }, 1000);
+    });
+  }
+
+  async function shufflePositions() {
+    // Multi-step path swap: 4-6 random reshuffles of positions.
+    // CRITICAL: the final rest assignment is randomized so the Lucky Duck does NOT
+    // always return to its original starting slot — otherwise tracking is pointless.
+    const slots = [
+      { x: 12, y: 35 }, { x: 39, y: 40 }, { x: 66, y: 35 },
+      { x: 22, y: 18 }, { x: 52, y: 18 }, { x: 76, y: 50 },
+      { x: 28, y: 55 }, { x: 60, y: 55 },
+    ];
+    const steps = 4 + Math.floor(Math.random() * 3); // 4..6
+    for (let step = 0; step < steps; step++) {
+      // Pick 3 unique slots, assign by duck index (so each duck takes a random slot)
+      const pool = [...slots].sort(() => Math.random() - 0.5);
+      const targets = pool.slice(0, 3);
+      const dur = 600 - step * 50;
+      await Promise.all(state.ducks.map((d, i) => d.controller.moveTo(targets[i].x, targets[i].y, dur)));
+    }
+    // Final rest row — but each duck is assigned a RANDOM slot, not its index slot.
+    // This is what makes tracking matter.
+    const rest = [
+      { x: 13, y: 38 }, { x: 39, y: 38 }, { x: 65, y: 38 }
+    ];
+    const finalOrder = [0, 1, 2].sort(() => Math.random() - 0.5);
+    await Promise.all(state.ducks.map((d, i) =>
+      d.controller.moveTo(rest[finalOrder[i]].x, rest[finalOrder[i]].y, 500, 'cubic-bezier(0.25, 1, 0.5, 1)')
+    ));
+  }
+
+  function onPick(index) {
+    // Remove pickable from others
+    state.ducks.forEach(d => d.controller.setPickable(false));
+
+    const correct = (index === state.luckyIndex);
+    const picked = state.ducks[index];
+    picked.controller.markPicked(correct);
+
+    // Reveal: lucky duck shimmers, others fade
+    state.ducks.forEach((d, i) => {
+      if (i === state.luckyIndex) d.controller.revealAsLucky();
+      else d.controller.revealAsDecoy();
+      // Re-apply tells so on reveal the lucky duck still shows its identity
+      if (i === state.luckyIndex) d.controller.setTell(d.tell);
+    });
+
+    if (correct) {
+      quack();
+      winChime();
+      fireWinVfx(state.confidence, picked.el);
+      if (state.confidence >= 40) jackpotFanfare();
+    } else {
+      lossThud();
+    }
+
+    // 1.4s pause for the visual reveal before result card
+    setTimeout(() => showResult(correct), 1400);
+  }
+
+  function showResult(won) {
+    setPhase('reveal');
+    const bet = state.bet;
+    const mult = state.confidence;
+    let delta;
+    if (won) {
+      // Player gets bet back PLUS bet*mult winnings
+      const totalReturn = bet * mult;
+      updateBalance(totalReturn);
+      delta = +totalReturn - bet; // net gain over starting balance
+      // Headline tier scales with confidence
+      let headline = 'WIN';
+      let cls = 'result-headline win';
+      if (mult >= 40)      { headline = 'EAGLE-EYE'; cls = 'result-headline jackpot'; }
+      else if (mult >= 15) { headline = 'SHARP!'; }
+      else if (mult >= 5)  { headline = 'BOLD WIN'; }
+      els.resultHeadline.textContent = headline;
+      els.resultHeadline.className = cls;
+      els.resultAmount.textContent = '+' + fmt(totalReturn - bet);
+      els.resultDetail.textContent = `${bet} bet × ${mult} confidence`;
+      const glowAlpha = mult >= 40 ? 0.6 : mult >= 15 ? 0.45 : mult >= 5 ? 0.32 : 0.22;
+      els.resultCard.style.boxShadow = `0 0 ${60 + mult * 2}px rgba(253, 224, 84, ${glowAlpha})`;
+    } else {
+      delta = -bet;
+      els.resultHeadline.textContent = 'DECOYED';
+      els.resultHeadline.className = 'result-headline loss';
+      els.resultAmount.textContent = '−' + fmt(bet);
+      els.resultDetail.textContent = `Tell was: ${labelForTell(state.ducks[state.luckyIndex].tell)}`;
+      els.resultCard.style.boxShadow = '0 0 60px rgba(251, 0, 159, 0.20)';
+    }
+    addHistory(won, delta);
+  }
+
+  function labelForTell(t) {
+    if (!t || t.type === 'none') return '—';
+    const map = {
+      fasterBob: 'faster bob',
+      sway: 'wider sway',
+      glow: 'brighter glow',
+      wingFlap: 'wing flap',
+      tilt: 'subtle tilt',
+    };
+    return map[t.type] || t.type;
+  }
+
+  function addHistory(won, delta) {
+    state.history.unshift({ won, delta });
+    if (state.history.length > 10) state.history.pop();
+    renderHistory();
+  }
+  function renderHistory() {
+    els.historyStrip.innerHTML = '';
+    const label = document.createElement('span');
+    label.className = 'history-label';
+    label.textContent = 'RECENT';
+    els.historyStrip.appendChild(label);
+    if (state.history.length === 0) {
+      const empty = document.createElement('span');
+      empty.className = 'history-empty';
+      empty.textContent = 'No rounds yet';
+      els.historyStrip.appendChild(empty);
+      return;
+    }
+    state.history.forEach(h => {
+      const pill = document.createElement('span');
+      pill.className = 'history-pill ' + (h.won ? 'win' : 'loss');
+      pill.textContent = (h.won ? '+' : '−') + fmt(Math.abs(h.delta));
+      els.historyStrip.appendChild(pill);
+    });
+  }
+
+  function flashStartBtn(text) {
+    const orig = els.startBtn.textContent;
+    els.startBtn.textContent = text;
+    els.startBtn.style.background = 'linear-gradient(120deg, #fb009f, #f8050e)';
+    setTimeout(() => {
+      els.startBtn.textContent = orig;
+      els.startBtn.style.background = '';
+    }, 1500);
+  }
+
+  // ---- Init ------------------------------------------------------
+  function init() {
+    updateBalance(0);
+    updatePotentialWin();
+  }
+  init();
+})();
+
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
